@@ -1,45 +1,27 @@
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
-
-Welcome USER_NAME,
-
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
-
-## Gitpod Reminders
-
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
-
-`python3 -m http.server`
-
-A blue button should appear to click: *Make Public*,
-
-Another blue button should appear to click: *Open Browser*.
-
+python3 -m http.server
+python3 manage.py runserver
 To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
 
-A blue button should appear to click: *Make Public*,
+# Creating  Django Project
 
-Another blue button should appear to click: *Open Browser*.
+1. Install Django using PIP (Pip Installs Packages). In console window type pip3 install django
+2. Create Project. In console window type django-admin startproject project_name . (Full stop to put into current directory)
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+# Creating an App in Django
 
-## Updates Since The Instructional Video
+1. Create app by typing into the console window python3 manage.py startapp app_name
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+# Render to Frontend
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
-
---------
-
-Happy coding!
+1. In the App folder, go to views.py and create required function
+    def fn_name(request):
+        return render(request, 'app_name/html_page_name.html')
+2. In project folder, go to urls.py:
+-- Import the function: from app_folder.views.py import fn_name
+-- Create Url Pattern: path('url/', fn_name, name='') (To create home or default landing page, leave url blank, just '')
+3. In the App folder, create a new folder called templates
+4. Inside the new templates folder, create a new folder named to match the App app_folder
+5. Inside this new folder, create a new html file (named appropriately)
+6. In new html file, create basic structure
+7. In project folder, go to settings.py. Add the app to INSTALLED_APPS by typing 'app_name' 
