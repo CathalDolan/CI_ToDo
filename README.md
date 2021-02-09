@@ -139,3 +139,25 @@ This is done via views
             </p>
         </div>
     </form>
+
+# Deployment
+
+1. Register on Heroku.com or login to an existing account
+2. If not already installed on IDE to allow cli, do so:
+    $ curl https://cli-assets.heroku.com/install.sh | sh
+3. To login via cli:
+    heroku login
+3.1 If that fails, type npm install -g heroku followed by heroku login -i
+4. To see all Heroku commands: heroku in cli
+5. To gety help, type app name followed by help
+6. Migrate database from sqlLite to server based db, e.g. Postgres by installing:
+    pip3 install physcopg2-binary
+7. Install gunicorn to replace dev server when app is deployed:
+    pip3 install gunicorn
+8. Create a requirements.txt file to tell Heroku what it needfs to install for our app to work:
+    pip3 freeze --local > requirements.txt
+9. Create Heroku App:
+    heroku apps:create app_name --region eu (Name must start with a letter, end with a letter or digit and can only contain lowercase letters, digits, and dashes)
+
+
+
