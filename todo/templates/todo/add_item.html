@@ -8,20 +8,8 @@
 <body>
     <h1>Add a To Do Item</h1>
     <form method="POST" action="add">
-        <div>
-            <p>
-                <label for="id_name">Name: </label>
-                <!-- name attribute is the name we'll use to access the input's value in our view function -->
-                <input type="text" id="id_name" name="item_name" />
-            </p>
-        </div>
-        <div>
-            <p>
-                <label for="id_done">Done: </label>
-                <!-- name attribute is the name we'll use to access the input's value in our view function -->
-                <input type="checkbox" id="id_done" name="done" />
-            </p>
-        </div>
+        {% csrf_token %}
+        {{ form.as_p }}
         <div>
             <p>
                 <button type="submit">Add Item</button>

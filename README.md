@@ -77,3 +77,65 @@ All work is done on the dev (development) branch.
 4. Display actual name as opposed to default object string method name: In App models.py, go o the class and ass a function:
     def __str__(self):
         return self.name
+
+# Forms
+
+Add {% csrf_token %} immeditaley beneath the form tag. This is a security precaution the prevents data being submitted from outside our site.
+
+1. Create new file in the App folder, forms.py
+2. In new file: from django import forms
+3. In new file, import database class: from .models import class_name
+4. Create form class and inherit django's ModelForm from django's forms
+    class ItemForm(forms.ModelForm):
+        class Meta:
+            model = Item
+            fields = ['name','done']
+5. To allow the form to be used as a template variable, it needs to be imported into views.py 
+    from .forms import class_name
+
+# Injecting Database Content into html
+This is done via views
+
+1. Create a variable to contain the form data
+2. create a context: context = { 'name': name }
+3. Return the context in the return render  
+    form = ItemForm()
+    context = {
+        'form': form
+    }
+4. In html file where form data is to be rendered, we still require the form tags (and button) and put the template variable between it:
+    <form method="POST" action="add">
+        {% csrf_token %}
+        {{ form }}
+        <div>
+            <p>
+                <button type="submit">Add Item</button>
+            </p>
+        </div>
+    </form>
+5. For the Post request, we also need to create a variable: form = form_class_name(request.POST)
+6. We need to validate the form using is_valid method: if form.is_valid():
+7. This is proceeded by a built in save method: form.save
+8. This is then redirected to the html
+    def add_item(request):
+    if request.method =="POST":
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('get_todo_list')
+
+    form = ItemForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'todo/add_item.html', context)
+9. We can format the form in html using built in python methods such as as_p to set paragraphs
+    <form method="POST" action="add">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <p>
+                <button type="submit">Add Item</button>
+            </p>
+        </div>
+    </form>
