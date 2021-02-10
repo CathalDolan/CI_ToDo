@@ -149,8 +149,8 @@ This is done via views
     heroku login
 3.1 If that fails, type npm install -g heroku followed by heroku login -i
 4. To see all Heroku commands: heroku in cli
-5. To gety help, type app name followed by help
-6. Migrate database from sqlLite to server based db, e.g. Postgres by installing:
+5. To get help, type app name followed by help
+6. Migrate database from sqlLite to server based db, e.g. Postgres or ClearDB SQL by installing:
     pip3 install physcopg2-binary
 7. Install gunicorn to replace dev server when app is deployed:
     pip3 install gunicorn
@@ -158,6 +158,22 @@ This is done via views
     pip3 freeze --local > requirements.txt
 9. Create Heroku App:
     heroku apps:create app_name --region eu (Name must start with a letter, end with a letter or digit and can only contain lowercase letters, digits, and dashes)
+10. Connect Django app to Heroku Postgres:
+    - Login to Heroku, open desired App and click on Resources tab
+    - In "Add-ons" field, enter Postgres
+    - Select Heroku Postgres from presented options
+    - On pop-up, leave on "Hobby" setting and click Submit Order Form
+    - Postgres will now be visible in the Resources view
+11. We need to connect Django App to the new remote DB:
+    - In cli type pip3 install dj_database_url
+    - Add to requirements with pip3 freeze --local > requirements.txt
+    - Get remote database url with heroku config
+    - Go to settings.py in the project folder
+    - Copy DATABASES and paste it beneath
+    - Change 'default' to: 'default': dj_database_url.parse('url obtained in cli from heroku config command')
+    - Comment out the original DATABASES (It's for sql lite)
+    - Import: At the top of the page import dj_database_url
+    - Run migrations in cli: python3 manage.py migrate
 
 
 
