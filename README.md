@@ -174,6 +174,10 @@ This is done via views
     - Comment out the original DATABASES (It's for sql lite)
     - Import: At the top of the page import dj_database_url
     - Run migrations in cli: python3 manage.py migrate
+12. Update .gitignore (if already created. If not create a new file within the App called .gitignore)
+    - *.sqlite3
+13. Push to Heroku:
+    - git push heroku master
 
 
 
