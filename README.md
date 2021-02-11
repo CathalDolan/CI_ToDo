@@ -183,6 +183,8 @@ This is done via views
     - An error will appear after first one (I think if there is no CSS or JS files to push) so type: heroku config:set DISABLE_COLLECTSTATIC=1
     - create a Procfile in project folder. Remember capital P
     - IN Procfile add web: gunicorn django_todo.wsgi:application
+14. Add host to settings.py. In "ALLOWED HOSTS" add heroku app url, inbetween single commas. No https//, just the url
+    - Commit and push again to heroku
 
 
 # GitHub Merge Dev & Master branch
