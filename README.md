@@ -152,7 +152,7 @@ This is done via views
 5. To get help, type app name followed by help
 6. Migrate database from sqlLite to server based db, e.g. Postgres or ClearDB SQL by installing:
     pip3 install physcopg2-binary
-7. Install gunicorn to replace dev server when app is deployed:
+7. Install gunicorn to replace dev server when app is deployed and act as web server:
     pip3 install gunicorn
 8. Create a requirements.txt file to tell Heroku what it needfs to install for our app to work:
     pip3 freeze --local > requirements.txt
@@ -177,7 +177,19 @@ This is done via views
 12. Update .gitignore (if already created. If not create a new file within the App called .gitignore)
     - *.sqlite3
 13. Push to Heroku:
-    - git push heroku master
+    - Add, Commit and Push to GitHub
+    - git push heroku master (if on master branch only) Order
+    - git push heroku <dev-branch>:name
+    - An error will appear after first one (I think if there is no CSS or JS files to push) so type: heroku config:set DISABLE_COLLECTSTATIC=1
+    - create a Procfile in project folder. Remember capital P
+    - IN Procfile add web: gunicorn django_todo.wsgi:application
+14. Add host to settings.py. In "ALLOWED HOSTS" add heroku app url, inbetween single commas. No https//, just the url
+    - Commit and push again to heroku
 
 
-
+# GitHub Merge Dev & Master branch
+1. Login to Github and open required project
+2. If present click on "Compare & pull request"
+3. Somethging else...
+4. Confirm Merge
+5. Merge Success
