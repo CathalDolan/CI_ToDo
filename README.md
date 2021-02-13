@@ -210,6 +210,14 @@ This is done via views
         - Restart workspace
         - Under allowed hosts, create an if statement to select host depending on environment
 
+# Secret Key
+    - Set default to an empty string
+    - Generate a key (eg - https://miniwebtool.com/django-secret-key-generator/) and copy it
+    - Create a new variable in the development environment called SECRET_KEY and paste it in (dev environ in the IDE settings)
+    - Restart the workspace
+    - Create a Secret Key for Heroku and add it to COnvig Var
+    
+
 
 # GitHub Merge Dev & Master branch
 1. Login to Github and open required project
