@@ -169,7 +169,7 @@ This is done via views
     - Add to requirements with pip3 freeze --local > requirements.txt
     - Get remote database url with heroku config
     - Go to settings.py in the project folder
-    - Copy DATABASES and paste it beneath
+    - Copy DATABASES and paste it beneath, this is needed for teh Development Environment later on
     - Change 'default' to: 'default': dj_database_url.parse('url obtained in cli from heroku config command')
         - This was changed to 'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) sameish as ALLOWED_HOSTS
         - 
@@ -199,6 +199,16 @@ This is done via views
     - Seacrh for Repo name
     - Once found click Connect
     - Under Automatic deploys choose branch and select auto deploy????
+16. - Create a Development Environment
+    - In settings.py beneath the imports, add development = os.environ.get('DEVELOPMENT', False)
+    - Set DEBUG to = development. This means it is only on in dev and not on Heroku
+    - Under Databases, uncomment original DATABSES and put into an if statement with the other database
+    - Set development environment variable to true
+        - Go to workspaces page
+        - Click account in top right and then settings
+        - Create new variable called DEVELOPMENT and set value to True
+        - Restart workspace
+        - Under allowed hosts, create an if statement to select host depending on environment
 
 
 # GitHub Merge Dev & Master branch
