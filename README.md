@@ -169,8 +169,10 @@ This is done via views
     - Add to requirements with pip3 freeze --local > requirements.txt
     - Get remote database url with heroku config
     - Go to settings.py in the project folder
-    - Copy DATABASES and paste it beneath
+    - Copy DATABASES and paste it beneath, this is needed for teh Development Environment later on
     - Change 'default' to: 'default': dj_database_url.parse('url obtained in cli from heroku config command')
+        - This was changed to 'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) sameish as ALLOWED_HOSTS
+        - 
     - Comment out the original DATABASES (It's for sql lite)
     - Import: At the top of the page import dj_database_url
     - Run migrations in cli: python3 manage.py migrate
@@ -183,8 +185,38 @@ This is done via views
     - An error will appear after first one (I think if there is no CSS or JS files to push) so type: heroku config:set DISABLE_COLLECTSTATIC=1
     - create a Procfile in project folder. Remember capital P
     - IN Procfile add web: gunicorn django_todo.wsgi:application
-14. Add host to settings.py. In "ALLOWED HOSTS" add heroku app url, inbetween single commas. No https//, just the url
+14. Add host to settings.py. In "ALLOWED HOSTS" add heroku app url, inbetween single commas. No https//, just the url`
+        - this was changed to os.environ.get('HEROKU_HOSTNAME))
+        - In Heroku got to Settings and config Vars
+        - Add a variable called HEROKU_HOSTNAME
+        - In teh corresponding fields add the url minus the https://
+        - Click Add
     - Commit and push again to heroku
+15. Set-up Automatic pushes from Github to Heroku
+    - Go to App Heroku Dashboard and click Deplay tab
+    - Go to Deployment Method tab and select GitHub
+    - Login to Github if requested to do so
+    - Seacrh for Repo name
+    - Once found click Connect
+    - Under Automatic deploys choose branch and select auto deploy????
+16. - Create a Development Environment
+    - In settings.py beneath the imports, add development = os.environ.get('DEVELOPMENT', False)
+    - Set DEBUG to = development. This means it is only on in dev and not on Heroku
+    - Under Databases, uncomment original DATABSES and put into an if statement with the other database
+    - Set development environment variable to true
+        - Go to workspaces page
+        - Click account in top right and then settings
+        - Create new variable called DEVELOPMENT and set value to True
+        - Restart workspace
+        - Under allowed hosts, create an if statement to select host depending on environment
+
+# Secret Key
+    - Set default to an empty string
+    - Generate a key (eg - https://miniwebtool.com/django-secret-key-generator/) and copy it
+    - Create a new variable in the development environment called SECRET_KEY and paste it in (dev environ in the IDE settings)
+    - Restart the workspace
+    - Create a Secret Key for Heroku and add it to COnvig Var
+    
 
 
 # GitHub Merge Dev & Master branch
