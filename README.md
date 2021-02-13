@@ -171,6 +171,8 @@ This is done via views
     - Go to settings.py in the project folder
     - Copy DATABASES and paste it beneath
     - Change 'default' to: 'default': dj_database_url.parse('url obtained in cli from heroku config command')
+        - This was changed to 'default': dj_database_url.parse(os.environ.get('DATABASE_URL')) sameish as ALLOWED_HOSTS
+        - 
     - Comment out the original DATABASES (It's for sql lite)
     - Import: At the top of the page import dj_database_url
     - Run migrations in cli: python3 manage.py migrate
@@ -183,8 +185,20 @@ This is done via views
     - An error will appear after first one (I think if there is no CSS or JS files to push) so type: heroku config:set DISABLE_COLLECTSTATIC=1
     - create a Procfile in project folder. Remember capital P
     - IN Procfile add web: gunicorn django_todo.wsgi:application
-14. Add host to settings.py. In "ALLOWED HOSTS" add heroku app url, inbetween single commas. No https//, just the url
+14. Add host to settings.py. In "ALLOWED HOSTS" add heroku app url, inbetween single commas. No https//, just the url`
+        - this was changed to os.environ.get('HEROKU_HOSTNAME))
+        - In Heroku got to Settings and config Vars
+        - Add a variable called HEROKU_HOSTNAME
+        - In teh corresponding fields add the url minus the https://
+        - Click Add
     - Commit and push again to heroku
+15. Set-up Automatic pushes from Github to Heroku
+    - Go to App Heroku Dashboard and click Deplay tab
+    - Go to Deployment Method tab and select GitHub
+    - Login to Github if requested to do so
+    - Seacrh for Repo name
+    - Once found click Connect
+    - Under Automatic deploys choose branch and select auto deploy????
 
 
 # GitHub Merge Dev & Master branch
